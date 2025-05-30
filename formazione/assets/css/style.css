@@ -1,0 +1,1413 @@
+/**
+ * File: style.css
+ * Descrizione: Foglio di stile principale per la Scuola di Formazione
+ * 
+ * Questo file contiene tutti gli stili personalizzati dell'applicazione:
+ * - Sistema di design con variabili CSS per la consistenza
+ * - Componenti personalizzati che estendono Bootstrap
+ * - Layout specifici per le diverse sezioni
+ * - Design responsive e ottimizzazioni mobile
+ * - Animazioni e transizioni per migliorare l'UX
+ * - Miglioramenti di accessibilità
+ * - Stili per stampa e preparazione dark mode
+ * 
+ * Struttura del file:
+ * 1. Import esterni (FontAwesome)
+ * 2. Variabili CSS (Sistema di Design)
+ * 3. Stili base e tipografia
+ * 4. Componenti di navigazione
+ * 5. Componenti form e input
+ * 6. Componenti tabella
+ * 7. Cards e contenitori
+ * 8. Pulsanti ed elementi interattivi
+ * 9. Classi di utilità
+ * 10. Design responsive
+ * 11. Animazioni
+ * 12. Funzionalità di accessibilità
+ */
+
+/* === IMPORT ESTERNI === */
+/* FontAwesome 6.4.0 per icone vettoriali scalabili */
+/* Caricato da CDN per prestazioni ottimali e caching */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* === SISTEMA DI DESIGN - VARIABILI CSS === */
+/* 
+ * Le variabili CSS (Custom Properties) permettono:
+ * - Consistenza del design in tutto il sito
+ * - Facile manutenzione e aggiornamenti
+ * - Theming dinamico (modalità chiara/scura)
+ * - Calcoli dinamici con calc()
+ * - Ereditarietà e cascata naturale
+ */
+:root {
+  /* === PALETTE COLORI PRINCIPALE === */
+  --primary-color: #4361ee;        /* Blu principale per CTA e brand */
+  --primary-light: #e9effd;        /* Blu chiaro per sfondi e stati hover */
+  --secondary-color: #2ec4b6;      /* Verde acqua per accenti e stati di successo */
+  --accent-color: #ff9f1c;         /* Arancione per evidenziazioni e avvertimenti */
+  
+  /* === COLORI TIPOGRAFIA === */
+  --text-color: #2b2d42;           /* Grigio scuro per testo principale */
+  --text-light: #6c757d;           /* Grigio medio per testo secondario */
+  --light-bg: #f8f9fc;             /* Sfondo molto chiaro per contrasto */
+  --white: #ffffff;                 /* Bianco puro per cards e contenitori */
+  
+  /* === COLORI SEMANTICI === */
+  --danger-color: #e63946;         /* Rosso per errori e azioni distruttive */
+  --warning-color: #ffbe0b;        /* Giallo per avvertimenti e attenzione */
+  --success-color: #06d6a0;        /* Verde per successo e conferme */
+  --info-color: #4cc9f0;           /* Celeste per informazioni neutre */
+  
+  /* === SISTEMA DI DESIGN SPAZIALE === */
+  --card-shadow: 0 0.25rem 1rem rgba(43, 45, 66, 0.1);  /* Ombra standard per profondità */
+  --border-radius: 0.5rem;                               /* Raggio consistente per angoli */
+  --transition-speed: 0.3s;                              /* Velocità animazioni standard */
+}
+
+/* === STILI BASE E TIPOGRAFIA === */
+
+/* 
+ * Styling del body: Fondamenta dell'intera applicazione
+ * - Layout flexbox per footer fisso
+ * - Sistema tipografico con font stack moderno
+ * - Colori e transizioni dal sistema di design
+ */
+body {
+  background-color: var(--light-bg);      /* Sfondo chiaro per ridurre affaticamento */
+  color: var(--text-color);               /* Testo scuro per contrasto ottimale */
+  
+  /* Font stack moderno con fallbacks appropriati */
+  font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;                       /* Altezza riga per leggibilità ottimale */
+  
+  /* Layout flexbox per footer fisso */
+  min-height: 100vh;                      /* Altezza minima viewport completo */
+  display: flex;
+  flex-direction: column;                 /* Colonna verticale per header-main-footer */
+  
+  /* Transizioni fluide per cambio tema */
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Area contenuto principale: flex-grow per occupare spazio disponibile */
+main {
+  flex: 1;                               /* Cresce per spingere footer in fondo */
+}
+
+/* === COMPONENTI NAVBAR === */
+
+/*
+ * Navbar principale: Design moderno con gradiente ed effetti
+ * - Sfondo gradiente per appeal visivo
+ * - Ombra per separazione dal contenuto
+ * - Padding responsivo per diverse dimensioni schermo
+ */
+.navbar {
+  /* Gradiente lineare per profondità visiva */
+  background: linear-gradient(135deg, var(--primary-color), #3a54c4);
+  padding: 1rem 2rem;                     /* Padding generoso per spazio respiratorio */
+  
+  /* Ombra sottile per elevazione */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 2rem;                    /* Separazione dal contenuto */
+  
+  /* Transizione per cambi tema fluidi */
+  transition: background var(--transition-speed);
+}
+
+/*
+ * Styling del brand: Logo/titolo dell'applicazione
+ * - Tipografia enfatizzata per riconoscimento brand
+ * - Colore bianco per contrasto su sfondo scuro
+ * - Spaziatura lettere per eleganza tipografica
+ */
+.navbar-brand {
+  color: #fff !important;                 /* Important per sovrascrivere defaults Bootstrap */
+  font-weight: 700;                       /* Bold per enfasi */
+  letter-spacing: 0.05em;                 /* Spaziatura per eleganza */
+  font-size: 1.25rem;                     /* Dimensione leggermente più grande */
+}
+
+/*
+ * Link di navigazione: Stili per elementi menu
+ * - Colori con opacità per gerarchia visiva
+ * - Padding ottimizzato per target touch
+ * - Border radius per aspetto moderno
+ */
+.nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;  /* Bianco semi-trasparente */
+  font-weight: 500;                              /* Peso medio per leggibilità */
+  padding: 0.5rem 1rem !important;               /* Padding touch-friendly */
+  border-radius: var(--border-radius);           /* Angoli arrotondati */
+}
+
+/*
+ * Stati hover e active per navigazione
+ * - Feedback visivo immediato per interazioni
+ * - Transform sottile per micro-interazioni
+ * - Overlay sfondo per stato attivo
+ */
+.nav-link:hover, 
+.nav-link.active {
+  color: white !important;                       /* Bianco pieno per enfasi */
+  background-color: rgba(255, 255, 255, 0.15);   /* Overlay semi-trasparente */
+  transform: translateY(-1px);                   /* Micro-movimento per feedback */
+}
+
+/*
+ * Styling menu dropdown: Menu a tendina moderni
+ * - Ombra per elevazione e profondità
+ * - Border radius per consistenza design
+ * - Padding interno per spaziatura confortevole
+ */
+.dropdown-menu {
+  border: none;                           /* Rimuove bordo default Bootstrap */
+  border-radius: var(--border-radius);   /* Angoli arrotondati consistenti */
+  box-shadow: var(--card-shadow);        /* Ombra per elevazione */
+  padding: 0.75rem;                      /* Padding interno generoso */
+  margin-top: 0.5rem;                    /* Spazio dal trigger */
+  border: 1px solid rgba(0,0,0,0.05);    /* Bordo sottile per definizione */
+}
+
+/*
+ * Elementi dropdown: Stili per elementi individuali
+ * - Border radius per stati hover
+ * - Padding ottimizzato per usabilità
+ * - Transizioni fluide per micro-interazioni
+ */
+.dropdown-item {
+  border-radius: calc(var(--border-radius) - 0.25rem);  /* Raggio leggermente minore */
+  padding: 0.6rem 1rem;                                 /* Padding confortevole */
+  font-weight: 500;                                     /* Peso medio */
+  transition: all 0.2s;                                 /* Transizione veloce */
+  color: var(--text-color);                             /* Colore testo principale */
+}
+
+/*
+ * Effetti hover per elementi dropdown
+ * - Cambio colore sfondo per feedback
+ * - Transform per micro-animazione
+ * - Colore coordinato con tema primario
+ */
+.dropdown-item:hover, 
+.dropdown-item:focus {
+  background-color: var(--primary-light);    /* Sfondo chiaro coordinato tema */
+  color: var(--primary-color);               /* Testo primario per contrasto */
+  transform: translateX(5px);                /* Effetto slide per feedback visivo */
+}
+
+/* === SISTEMA PULSANTI === */
+
+/*
+ * Styling base pulsanti: Fondamenta per tutti i pulsanti
+ * - Border radius consistente con sistema design
+ * - Padding ottimizzato per touch e desktop
+ * - Font weight per enfasi appropriata
+ * - Transizioni fluide per interazioni
+ */
+.btn {
+  border-radius: var(--border-radius);      /* Raggio angolo dal sistema design */
+  padding: 0.5rem 1.25rem;                 /* Padding orizzontale/verticale bilanciato */
+  font-weight: 600;                        /* Semi-bold per leggibilità */
+  transition: all var(--transition-speed); /* Transizione per tutti i cambiamenti */
+  border: none;                            /* Rimuove bordo default */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Ombra sottile per profondità */
+}
+
+/*
+ * Effetto hover universale per pulsanti
+ * - Transform per feedback tattile
+ * - Miglioramento ombra per elevazione
+ * - Consistente attraverso tutte le varianti pulsante
+ */
+.btn:hover {
+  transform: translateY(-2px);             /* Solleva il pulsante */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
+}
+
+/*
+ * Pulsante primario: Pulsante principale per CTA
+ * - Colori dal sistema design per consistenza
+ * - Stati hover con colori coordinati
+ */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover, 
+.btn-primary:focus {
+  background-color: #3551db !important;    /* Blu più scuro per hover */
+  border-color: #3551db !important;
+}
+
+/*
+ * Pulsante successo: Per azioni positive e conferme
+ * - Verde dal sistema design
+ * - Stato hover più scuro per feedback
+ */
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-success:hover, 
+.btn-success:focus {
+  background-color: #05c390 !important;    /* Verde più scuro */
+  border-color: #05c390 !important;
+}
+
+/*
+ * Pulsante avvertimento: Per azioni che richiedono attenzione
+ * - Giallo/arancione per visibilità
+ * - Testo scuro per contrasto ottimale
+ */
+.btn-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: #212529;                          /* Testo scuro per contrasto */
+}
+
+.btn-warning:hover, 
+.btn-warning:focus {
+  background-color: #f5b400 !important;    /* Giallo più scuro */
+  border-color: #f5b400 !important;
+  color: #212529 !important;               /* Mantiene testo scuro */
+}
+
+/*
+ * Pulsante pericolo: Per azioni distruttive
+ * - Rosso per avvertimento immediato
+ * - Stato hover per conferma visiva
+ */
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.btn-danger:hover, 
+.btn-danger:focus {
+  background-color: #d92b39 !important;    /* Rosso più scuro */
+  border-color: #d92b39 !important;
+}
+
+/*
+ * Pulsante info: Per informazioni e aiuto
+ * - Celeste per neutralità informativa
+ * - Testo bianco per contrasto
+ */
+.btn-info {
+  background-color: var(--info-color);
+  border-color: var(--info-color);
+  color: #fff;
+}
+
+.btn-info:hover, 
+.btn-info:focus {
+  background-color: #33bfe9 !important;    /* Celeste più scuro */
+  border-color: #33bfe9 !important;
+  color: #fff !important;
+}
+
+/*
+ * Pulsanti azione: Pulsanti piccoli per tabelle e cards
+ * - Dimensioni ridotte per contesto specifico
+ * - Rimuove ombra per minimalismo
+ * - Dimensione font ottimizzata per contesti piccoli
+ */
+.btn-action {
+  padding: 0.35rem 0.7rem;                /* Padding ridotto */
+  margin: 0 0.125rem;                     /* Margine tra pulsanti adiacenti */
+  box-shadow: none;                       /* Nessuna ombra per look pulito */
+  font-size: 0.875rem;                    /* Font leggermente più piccolo */
+}
+
+/*
+ * Pulsanti outline: Varianti con bordo colorato
+ * - Sfondo trasparente per contrasto
+ * - Hover riempie per feedback visivo
+ */
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-outline-primary.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/*
+ * Pulsante secondario: Stile neutro per azioni secondarie
+ * - Grigio per gerarchia visiva
+ * - Consistente con defaults Bootstrap
+ */
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* === SISTEMA CARDS === */
+
+/*
+ * Styling base card: Contenitore principale per contenuto
+ * - Sistema ombra per profondità e gerarchia
+ * - Border radius per aspetto moderno
+ * - Transizione per effetti hover
+ * - Overflow nascosto per controllo elementi figli
+ */
+.card {
+  border: none;                           /* Rimuove bordo default Bootstrap */
+  border-radius: var(--border-radius);   /* Raggio angolo consistente */
+  box-shadow: var(--card-shadow);        /* Ombra dal sistema design */
+  transition: transform 0.2s, box-shadow 0.2s; /* Transizioni hover fluide */
+  background-color: var(--white);        /* Sfondo bianco per contrasto */
+  margin-bottom: 1.5rem;                 /* Margine bottom per spaziatura */
+  overflow: hidden;                       /* Taglia figli per bordi puliti */
+}
+
+/*
+ * Effetto hover card: Micro-interazione per coinvolgimento
+ * - Transform per feedback tattile
+ * - Ombra migliorata per elevazione
+ * - Sottile ma notevole per piacere utente
+ */
+.card:hover {
+  transform: translateY(-5px);           /* Solleva la card */
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1); /* Ombra più pronunciata */
+}
+
+/*
+ * Header card: Intestazione per sezioni e titoli
+ * - Sfondo bianco di default
+ * - Bordo sottile per separazione
+ * - Padding ottimizzato per contenuto
+ * - Layout flex per allineamento titolo/azioni
+ */
+.card-header {
+  background-color: var(--white);        /* Sfondo bianco default */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Bordo sottile */
+  padding: 1.25rem 1.5rem;              /* Padding generoso */
+  display: flex;                         /* Flex per allineamento */
+  justify-content: space-between;        /* Spazio tra titolo e azioni */
+  align-items: center;                   /* Allineamento centro verticale */
+}
+
+/*
+ * Header card colorati: Varianti tematiche
+ * - Override dello sfondo default
+ * - Testo bianco per contrasto su colori scuri
+ * - Consistenza con sistema colori pulsanti
+ */
+.card-header.bg-primary {
+  background-color: var(--primary-color) !important;
+  color: white;
+}
+
+.card-header.bg-success {
+  background-color: var(--success-color) !important;
+  color: white;
+}
+
+.card-header.bg-danger {
+  background-color: var(--danger-color) !important;
+  color: white;
+}
+
+.card-header.bg-warning {
+  background-color: var(--warning-color) !important;
+  color: #212529;                        /* Testo scuro per contrasto */
+}
+
+.card-header.bg-info {
+  background-color: var(--info-color) !important;
+  color: white;
+}
+
+/*
+ * Titolo card: Tipografia per intestazioni
+ * - Margine zero per spaziatura pulita
+ * - Font weight per gerarchia
+ * - Eredità colore per header tematici
+ */
+.card-title {
+  margin-bottom: 0;                      /* Rimuove margine default */
+  font-weight: 600;                      /* Semi-bold per enfasi */
+  color: inherit;                        /* Eredita colore dal parent */
+}
+
+/*
+ * Body card: Area contenuto principale
+ * - Padding generoso per leggibilità
+ * - Sfondo bianco per contrasto
+ */
+.card-body {
+  padding: 1.5rem;                       /* Padding equilibrato */
+}
+
+/*
+ * Footer card: Area azioni e informazioni aggiuntive
+ * - Sfondo leggermente diverso per separazione
+ * - Bordo top sottile per definizione
+ * - Padding coordinato con body
+ */
+.card-footer {
+  background-color: rgba(0, 0, 0, 0.02); /* Sfondo molto leggero */
+  border-top: 1px solid rgba(0, 0, 0, 0.05); /* Bordo top sottile */
+  padding: 1rem 1.5rem;                  /* Padding leggermente ridotto */
+}
+
+/* === SISTEMA FORM === */
+
+/*
+ * Controlli form: Styling base input, select, textarea
+ * - Border radius per consistenza
+ * - Padding ottimizzato per usabilità
+ * - Bordo sottile per definizione
+ * - Dimensione font appropriata per leggibilità
+ * - Transizioni per stati focus
+ */
+.form-control {
+  border-radius: var(--border-radius);   /* Raggio angolo consistente */
+  padding: 0.75rem 1rem;                 /* Padding confortevole per digitazione */
+  border: 1px solid #dee2e6;             /* Bordo grigio chiaro */
+  font-size: 1rem;                       /* Dimensione font standard per accessibilità */
+  transition: border-color 0.2s, box-shadow 0.2s; /* Transizioni focus fluide */
+  background-color: var(--white);        /* Sfondo bianco */
+  color: var(--text-color);              /* Colore testo primario */
+}
+
+/*
+ * Stato focus per controlli form
+ * - Colore bordo coordinato tema primario
+ * - Box shadow per enfasi visiva
+ * - Rimuove outline per styling personalizzato
+ */
+.form-control:focus {
+  border-color: var(--primary-color);    /* Bordo blu per focus */
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25); /* Ombra blu traslucida */
+}
+
+/*
+ * Stati disabled e readonly
+ * - Sfondo grigio per distinzione visiva
+ * - Mantiene leggibilità ma indica non-modificabile
+ */
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: rgba(0, 0, 0, 0.03); /* Sfondo leggermente grigio */
+}
+
+/*
+ * Etichette form: Tipografia per etichette
+ * - Font weight per gerarchia
+ * - Colore coordinato con sistema testo
+ * - Spaziatura margine per ritmo verticale
+ */
+.form-label {
+  font-weight: 600;                      /* Semi-bold per enfasi */
+  color: var(--text-color);              /* Testo primario */
+  margin-bottom: 0.5rem;                 /* Spaziatura da input */
+}
+
+/*
+ * Testo form: Testo helper e descrizioni
+ * - Colore più chiaro per gerarchia
+ * - Margine top per spaziatura dal controllo
+ * - Dimensione font leggermente ridotta
+ */
+.form-text {
+  color: var(--text-light);              /* Colore testo secondario */
+  margin-top: 0.5rem;                    /* Spaziatura dall'input */
+  font-size: 0.875rem;                   /* Font leggermente più piccolo */
+}
+
+/*
+ * Testo gruppo input: Addon per inputs
+ * - Sfondo coordinato con tema primario
+ * - Bordo coordinato controlli form
+ * - Colore coordinato per consistenza
+ */
+.input-group-text {
+  background-color: var(--primary-light); /* Sfondo primario chiaro */
+  border: 1px solid #dee2e6;             /* Bordo coordinato inputs */
+  color: var(--primary-color);           /* Testo primario */
+  border-radius: var(--border-radius);   /* Raggio angolo consistente */
+}
+
+/* === SISTEMA TABELLE === */
+
+/*
+ * Wrapper tabella: Contenitore per tabelle responsive
+ * - Sfondo bianco per contrasto
+ * - Border radius per aspetto moderno
+ * - Ombra per elevazione
+ * - Overflow nascosto per bordi puliti
+ */
+.table-wrapper {
+  background-color: var(--white);        /* Sfondo bianco */
+  border-radius: var(--border-radius);   /* Raggio angolo */
+  box-shadow: var(--card-shadow);        /* Ombra standard */
+  overflow: hidden;                       /* Taglia contenuto per bordi puliti */
+  margin-bottom: 1.5rem;                 /* Margine bottom per spaziatura */
+}
+
+/*
+ * Base tabella: Rimuove margine per integrazione wrapper
+ */
+.table {
+  margin-bottom: 0;                      /* Nessun margine per integrazione con wrapper */
+}
+
+/*
+ * Styling header tabella: Tipografia e colori per thead
+ * - Sfondo leggermente diverso per distinzione
+ * - Tipografia enfatizzata per gerarchia
+ * - Text transform per consistenza
+ * - Spaziatura lettere per eleganza
+ * - Padding generoso per leggibilità
+ */
+.table thead th {
+  background-color: rgba(0, 0, 0, 0.02); /* Sfondo grigio molto leggero */
+  color: var(--text-color);              /* Testo primario */
+  font-weight: 700;                      /* Bold per enfasi */
+  text-transform: uppercase;              /* Maiuscolo per distinzione */
+  letter-spacing: 0.05em;                /* Spaziatura lettere per eleganza */
+  font-size: 0.75rem;                    /* Dimensione font ridotta */
+  padding: 1rem;                         /* Padding generoso */
+  border-top: none;                      /* Rimuove bordo top */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Bordo bottom sottile */
+}
+
+/*
+ * Styling body tabella: Celle contenuto
+ * - Padding ottimizzato per leggibilità
+ * - Allineamento verticale per aspetto pulito
+ * - Bordo sottile per separazione righe
+ * - Coordinamento colori
+ */
+.table tbody td {
+  padding: 1rem;                         /* Padding coordinato header */
+  vertical-align: middle;                 /* Centra contenuto verticalmente */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Bordo sottile */
+  color: var(--text-color);              /* Testo primario */
+}
+
+/*
+ * Styling ultima riga: Rimuove bordo per fondo pulito
+ */
+.table tbody tr:last-child td {
+  border-bottom: none;                   /* Nessun bordo su ultima riga */
+}
+
+/*
+ * Transizioni righe tabella: Effetti hover
+ * - Transizione fluida per stato hover
+ * - Cambio sfondo per feedback
+ */
+.table tbody tr {
+  transition: all 0.2s;                  /* Transizione fluida */
+}
+
+.table tbody tr:hover {
+  background-color: var(--primary-light); /* Sfondo chiaro per hover */
+}
+
+/* === SISTEMA BADGE === */
+
+/*
+ * Styling base badge: Piccoli indicatori contenuto
+ * - Font weight per enfasi
+ * - Padding per lettura confortevole
+ * - Border radius per aspetto moderno
+ */
+.badge {
+  font-weight: 600;                      /* Semi-bold per leggibilità */
+  padding: 0.4em 0.65em;                 /* Padding equilibrato */
+  border-radius: 0.375rem;               /* Raggio angolo moderato */
+}
+
+/*
+ * Varianti colore badge: Colorazione semantica
+ * - Colori sfondo dal sistema design
+ * - Consistente con sistema colori pulsanti
+ */
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-success {
+  background-color: var(--success-color) !important;
+}
+
+.bg-warning {
+  background-color: var(--warning-color) !important;
+}
+
+.bg-danger {
+  background-color: var(--danger-color) !important;
+}
+
+.bg-info {
+  background-color: var(--info-color) !important;
+}
+
+.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.bg-light {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+.text-dark {
+  color: #212529 !important;
+}
+
+/* === SISTEMA ALERT === */
+
+/*
+ * Styling base alert: Contenitori messaggi
+ * - Bordo rimosso per look moderno pulito
+ * - Border radius per consistenza
+ * - Padding generoso per leggibilità
+ * - Margine per spaziatura da contenuto
+ * - Ombra per elevazione sottile
+ */
+.alert {
+  border: none;                          /* Rimuove bordo default */
+  border-radius: var(--border-radius);   /* Raggio angolo consistente */
+  padding: 1.2rem 1.5rem;                /* Padding generoso */
+  margin-bottom: 1.5rem;                 /* Margine bottom per spaziatura */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* Ombra sottile */
+}
+
+/*
+ * Varianti alert: Styling semantico
+ * - Colori sfondo coordinati con tema
+ * - Colori testo per contrasto ottimale
+ * - Opacità per aspetto morbido
+ */
+.alert-success {
+  background-color: rgba(6, 214, 160, 0.15); /* Verde successo traslucido */
+  color: var(--success-color);               /* Testo verde successo */
+}
+
+.alert-danger {
+  background-color: rgba(230, 57, 70, 0.15); /* Rosso pericolo traslucido */
+  color: var(--danger-color);                /* Testo rosso pericolo */
+}
+
+.alert-warning {
+  background-color: rgba(255, 190, 11, 0.15); /* Giallo avvertimento traslucido */
+  color: #d68200;                             /* Testo arancione avvertimento per contrasto */
+}
+
+.alert-info {
+  background-color: rgba(76, 201, 240, 0.15); /* Blu info traslucido */
+  color: var(--info-color);                   /* Testo blu info */
+}
+
+/* === COMPONENTI RICERCA === */
+
+/*
+ * Contenitore ricerca: Styling ricerca navbar
+ * - Larghezza massima per dimensionamento proporzionale
+ * - Integrazione con design navbar
+ */
+.search-container {
+  max-width: 280px;                      /* Limite larghezza per proporzione */
+}
+
+/*
+ * Styling input ricerca: Integrazione navbar
+ * - Styling personalizzato per contesto navbar
+ * - Sfondo trasparente per integrazione
+ * - Testo bianco per contrasto
+ * - Coordinamento bordo con navbar
+ */
+.search-container .form-control {
+  border-top-left-radius: var(--border-radius);    /* Raggio sinistro */
+  border-bottom-left-radius: var(--border-radius);
+  border-right: none;                               /* Rimuove bordo destro */
+  background-color: rgba(255, 255, 255, 0.15);     /* Bianco semi-trasparente */
+  color: white;                                     /* Testo bianco */
+  border-color: rgba(255, 255, 255, 0.2);          /* Bordo sottile */
+}
+
+/*
+ * Styling placeholder ricerca
+ * - Bianco più chiaro per distinzione da testo
+ */
+.search-container .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);       /* Bianco semi-trasparente */
+}
+
+/*
+ * Stato focus ricerca
+ * - Sfondo migliorato per visibilità
+ * - Miglioramento bordo per indicazione focus
+ */
+.search-container .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.25); /* Più opaco su focus */
+  border-color: rgba(255, 255, 255, 0.3);      /* Bordo migliorato */
+  box-shadow: none;                             /* Rimuove ombra default */
+}
+
+/*
+ * Styling pulsante ricerca: Coordinato con input
+ * - Sfondo coordinato input
+ * - Coordinamento bordo
+ * - Raggio destro per completamento
+ */
+.search-container .btn {
+  border-top-right-radius: var(--border-radius);   /* Raggio destro */
+  border-bottom-right-radius: var(--border-radius);
+  background-color: rgba(255, 255, 255, 0.15);     /* Coordinato input */
+  color: white;                                     /* Testo bianco */
+  border-color: rgba(255, 255, 255, 0.2);          /* Bordo coordinato */
+  border-left: none;                                /* Rimuove bordo sinistro */
+}
+
+/*
+ * Hover pulsante ricerca
+ * - Opacità migliorata per feedback
+ */
+.search-container .btn:hover {
+  background-color: rgba(255, 255, 255, 0.25); /* Migliorato su hover */
+}
+
+/* === HEADER SEZIONI === */
+
+/*
+ * Styling header sezione: Titoli sezioni pagina
+ * - Colore primario per consistenza tema
+ * - Font weight per gerarchia
+ * - Margine bottom per spaziatura
+ * - Posizionamento relativo per pseudo-elemento
+ * - Padding bottom per spaziatura sottolineatura
+ */
+.section-header {
+  color: var(--primary-color);           /* Colore primario per enfasi */
+  font-weight: 700;                      /* Bold per gerarchia */
+  margin-bottom: 1.5rem;                 /* Spaziatura bottom */
+  position: relative;                     /* Per posizionamento pseudo-elemento */
+  padding-bottom: 0.75rem;               /* Spazio per sottolineatura */
+}
+
+/*
+ * Sottolineatura header sezione: Elemento decorativo
+ * - Pseudo-elemento per styling sottolineatura
+ * - Coordinamento colore primario
+ * - Larghezza fissa per equilibrio visivo
+ * - Border radius per aspetto moderno
+ */
+.section-header::after {
+  content: '';                           /* Contenuto vuoto per pseudo-elemento */
+  position: absolute;                    /* Posizionamento assoluto */
+  left: 0;                              /* Allinea sinistra */
+  bottom: 0;                            /* Posiziona in fondo */
+  height: 3px;                          /* Spessore sottolineatura */
+  width: 50px;                          /* Larghezza fissa per proporzione */
+  background-color: var(--primary-color); /* Colore primario */
+  border-radius: 3px;                   /* Bordi arrotondati */
+}
+
+/* === STYLING FOOTER === */
+
+/*
+ * Styling base footer: Sezione fondo pagina
+ * - Sfondo bianco per contrasto
+ * - Padding verticale per spaziatura contenuto
+ * - Margine top per separazione da contenuto principale
+ * - Ombra per elevazione sottile
+ * - Coordinamento colore testo
+ * - Allineamento centro per equilibrio
+ */
+footer {
+  background-color: var(--white);        /* Sfondo bianco */
+  padding: 1.5rem 0;                     /* Padding verticale */
+  margin-top: 3rem;                      /* Margine top per separazione */
+  box-shadow: 0 -0.15rem 1rem rgba(0, 0, 0, 0.05); /* Ombra top */
+  color: var(--text-light);              /* Colore testo chiaro */
+  text-align: center;                    /* Allineamento centro */
+}
+
+/* === STYLING BREADCRUMB === */
+
+/*
+ * Navigazione breadcrumb: Indicatore percorso
+ * - Sfondo trasparente per integrazione
+ * - Padding per spaziatura confortevole
+ * - Margine bottom per separazione contenuto
+ */
+.breadcrumb {
+  background-color: transparent;          /* Sfondo trasparente */
+  padding: 0.75rem 0;                    /* Solo padding verticale */
+  margin-bottom: 1.5rem;                 /* Margine bottom */
+}
+
+/*
+ * Link breadcrumb: Elementi navigazione
+ * - Colore primario per consistenza tema
+ * - Nessuna decorazione per aspetto pulito
+ * - Transizione fluida per effetti hover
+ */
+.breadcrumb-item a {
+  color: var(--primary-color);           /* Colore primario */
+  text-decoration: none;                 /* Rimuove sottolineatura */
+  transition: color 0.2s;                /* Transizione colore fluida */
+}
+
+/*
+ * Hover link breadcrumb: Feedback per interazioni
+ * - Primario più scuro per feedback visivo
+ * - Sottolineatura per indicazione link tradizionale
+ */
+.breadcrumb-item a:hover {
+  color: #3551db;                        /* Primario più scuro */
+  text-decoration: underline;            /* Sottolineatura su hover */
+}
+
+/*
+ * Elemento breadcrumb attivo: Indicatore pagina corrente
+ * - Colore testo chiaro per distinzione
+ */
+.breadcrumb-item.active {
+  color: var(--text-light);              /* Colore chiaro per stato inattivo */
+}
+
+/* === SISTEMA PULSANTI AZIONE === */
+
+/*
+ * Contenitore pulsanti azione: Layout per gruppi pulsanti
+ * - Layout flex per allineamento
+ * - Giustificazione centro per equilibrio
+ * - Spaziatura gap per separazione pulsanti
+ */
+.action-buttons {
+  display: flex;                         /* Layout flex */
+  justify-content: center;               /* Allineamento centro */
+  gap: 10px;                            /* Spazio tra pulsanti */
+}
+
+/*
+ * Base pulsante azione: Piccoli pulsanti interattivi
+ * - Dimensione fissa per consistenza
+ * - Angoli arrotondati per aspetto moderno
+ * - Centratura flex per allineamento icone
+ * - Testo bianco per contrasto
+ * - Transizioni fluide per interazioni
+ * - Nessun bordo per aspetto pulito
+ * - Cursore pointer per indicazione interattività
+ */
+.action-btn {
+  width: 40px;                          /* Larghezza fissa */
+  height: 40px;                         /* Altezza fissa (quadrato) */
+  border-radius: 8px;                   /* Angoli arrotondati */
+  display: flex;                        /* Flex per centratura */
+  align-items: center;                  /* Centro verticale */
+  justify-content: center;              /* Centro orizzontale */
+  color: white;                         /* Testo bianco */
+  text-decoration: none;                /* Rimuove sottolineatura link */
+  transition: all 0.3s;                /* Transizioni fluide */
+  border: none;                         /* Rimuove bordo */
+  cursor: pointer;                      /* Cursore pointer */
+}
+
+/*
+ * Hover pulsante azione: Feedback interattivo
+ * - Transform verticale per feedback tattile
+ * - Ombra migliorata per elevazione
+ * - Preservazione colore per consistenza
+ */
+.action-btn:hover {
+  transform: translateY(-3px);          /* Effetto sollevamento */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Ombra migliorata */
+  color: white;                         /* Preserva testo bianco */
+}
+
+/*
+ * Dimensionamento icone unicode: Consistenza icone
+ * - Dimensione font per leggibilità
+ * - Altezza riga per allineamento verticale
+ */
+.unicode-icon {
+  font-size: 1rem;                      /* Dimensione icona standard */
+  line-height: 1;                       /* Altezza riga stretta */
+}
+
+/*
+ * Varianti pulsante azione: Colorazione semantica
+ * - Modifica: Blu primario per azioni modifica
+ * - Elimina: Rosso pericolo per azioni distruttive
+ * - Dettagli: Blu info per azioni informative
+ */
+.edit-btn {
+  background-color: var(--primary-color); /* Blu primario */
+}
+
+.edit-btn:hover {
+  background-color: #3551db;             /* Blu più scuro su hover */
+}
+
+.delete-btn {
+  background-color: var(--danger-color); /* Rosso pericolo */
+}
+
+.delete-btn:hover {
+  background-color: #d92b39;             /* Rosso più scuro su hover */
+}
+
+.details-btn {
+  background-color: var(--info-color);   /* Blu info */
+}
+
+.details-btn:hover {
+  background-color: #33bfe9;             /* Blu info più scuro su hover */
+}
+
+/* === CARDS STATISTICHE === */
+
+/*
+ * Base card stat: Card migliorata per statistiche
+ * - Transizioni fluide per effetti hover
+ * - Ombra sottile per elevazione iniziale
+ */
+.stat-card {
+  transition: all 0.3s ease;            /* Transizioni fluide tutte */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Ombra iniziale */
+}
+
+/*
+ * Hover card stat: Interazione migliorata
+ * - Sollevamento verticale per coinvolgimento
+ * - Ombra migliorata per aumento elevazione
+ */
+.stat-card:hover {
+  transform: translateY(-5px);          /* Effetto sollevamento */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1); /* Ombra migliorata */
+}
+
+/*
+ * Varianti colore sfondo: Sfondi tematici
+ * - Tinte chiare per colorazione sottile
+ * - Coordinato con sistema colori primario
+ */
+.bg-light-blue {
+  background-color: #e6f2ff;            /* Tinta blu chiara */
+}
+
+.bg-light-green {
+  background-color: #e6fff2;            /* Tinta verde chiara */
+}
+
+.bg-light-yellow {
+  background-color: #fffbe6;            /* Tinta gialla chiara */
+}
+
+/*
+ * Badge conteggio: Indicatori numerici
+ * - Dimensione fissa per consistenza
+ * - Centratura flex per allineamento numero
+ * - Coordinamento dimensione font
+ */
+.count-badge {
+  width: 32px;                          /* Larghezza fissa */
+  height: 32px;                         /* Altezza fissa */
+  display: inline-flex;                 /* Flex inline per integrazione */
+  align-items: center;                  /* Centro verticale */
+  justify-content: center;              /* Centro orizzontale */
+  font-size: 0.9rem;                    /* Font leggermente più piccolo */
+}
+
+/* === COMPONENTI LISTA === */
+
+/*
+ * Elementi gruppo lista: Styling lista migliorato
+ * - Colore bordo sottile per definizione
+ * - Padding generoso per leggibilità
+ * - Transizioni fluide per interazioni
+ */
+.list-group-item {
+  border-color: rgba(0, 0, 0, 0.05);    /* Bordo sottile */
+  padding: 1rem 1.25rem;                /* Padding generoso */
+  transition: all 0.2s;                 /* Transizioni fluide */
+}
+
+/*
+ * Hover gruppo lista: Feedback interattivo
+ * - Cambio sfondo per feedback visivo
+ */
+.list-group-item:hover {
+  background-color: var(--primary-light); /* Sfondo primario chiaro */
+}
+
+/*
+ * Elementi azione gruppo lista: Elementi cliccabili
+ * - Coordinamento colore testo
+ * - Colore preservato su hover per accessibilità
+ */
+.list-group-item-action {
+  color: var(--text-color);             /* Colore testo primario */
+}
+
+.list-group-item-action:hover {
+  color: var(--text-color);             /* Preserva colore su hover */
+}
+
+/* === CLASSI UTILITÀ === */
+
+/*
+ * Utilità colore testo: Colorazione testo semantica
+ * - Dichiarazioni important per specificità
+ * - Coordinato con colori sistema design
+ */
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-warning {
+  color: var(--warning-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+.text-info {
+  color: var(--info-color) !important;
+}
+
+.text-muted {
+  color: var(--text-light) !important;
+}
+
+/* === DESIGN RESPONSIVE === */
+
+/*
+ * Breakpoint tablet: 768px e inferiori
+ * - Padding navbar ridotto per efficienza spazio
+ * - Aggiustamenti padding contenitore per mobile
+ * - Riduzione dimensione font header tabella per spazio
+ * - Riduzione padding body card per mobile
+ * - Aggiustamento dimensione header sezione
+ * - Ottimizzazione spaziatura pulsanti azione
+ */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;              /* Padding ridotto */
+  }
+  
+  .container {
+    padding-left: 1.25rem;              /* Padding contenitore aggiustato */
+    padding-right: 1.25rem;
+  }
+  
+  .table thead th {
+    font-size: 0.7rem;                  /* Font header più piccolo */
+  }
+  
+  .card-body {
+    padding: 1.25rem;                   /* Padding card ridotto */
+  }
+  
+  .section-header {
+    font-size: 1.5rem;                  /* Header sezioni più piccoli */
+  }
+  
+  .action-buttons {
+    gap: 6px;                           /* Spaziatura pulsanti ridotta */
+  }
+  
+  .action-btn {
+    width: 36px;                        /* Dimensione pulsante più piccola */
+    height: 36px;
+  }
+  
+  .unicode-icon {
+    font-size: 1.1rem;                  /* Icona leggermente più grande per pulsante piccolo */
+  }
+}
+
+/*
+ * Breakpoint mobile: 576px e inferiori
+ * - Comportamento responsive tabella
+ * - Impilamento verticale pulsanti azione
+ * - Pulsanti azione larghezza piena per touch
+ */
+@media (max-width: 576px) {
+  .table-responsive {
+    overflow-x: auto;                   /* Scroll orizzontale per tabelle larghe */
+  }
+  
+  .action-btns {
+    display: flex;                      /* Layout flex */
+    flex-direction: column;             /* Impilamento verticale */
+    gap: 0.5rem;                       /* Spaziatura verticale */
+  }
+  
+  .btn-action {
+    width: 100%;                        /* Larghezza piena per touch */
+  }
+}
+
+/* === ANIMAZIONI === */
+
+/*
+ * Animazione fade in: Effetto entrata
+ * - Transizione opacità da invisibile a visibile
+ * - Entrata fluida per nuovo contenuto
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;                         /* Inizia invisibile */
+  }
+  to {
+    opacity: 1;                         /* Finisce visibile */
+  }
+}
+
+/*
+ * Animazione slide in up: Entrata con movimento
+ * - Movimento verticale dal basso
+ * - Coordinamento opacità con movimento
+ * - Entrata fluida con hint direzionale
+ */
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);        /* Inizia 20px sotto */
+    opacity: 0;                         /* Inizia invisibile */
+  }
+  to {
+    transform: translateY(0);           /* Finisce posizione naturale */
+    opacity: 1;                         /* Finisce visibile */
+  }
+}
+
+/*
+ * Classi utilità animazione: Applicazione facile
+ * - Fade in per entrate semplici
+ * - Slide in per entrate direzionali
+ */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;   /* Entrata fade fluida */
+}
+
+.slide-in {
+  animation: slideInUp 0.5s ease-out forwards; /* Entrata slide fluida */
+}
+
+/* === MIGLIORAMENTI ACCESSIBILITÀ === */
+
+/*
+ * Stati focus: Navigazione tastiera migliorata
+ * - Styling focus consistente attraverso componenti
+ * - Alto contrasto per visibilità
+ * - Rimozione outline con styling personalizzato
+ */
+.form-control:focus,
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25); /* Anello focus primario */
+  outline: none;                        /* Rimuove outline default */
+}
+
+/*
+ * Varianti focus pulsante: Styling focus semantico
+ * - Coordinato con varianti colore pulsante
+ * - Opacità consistente per anelli focus
+ */
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25); /* Focus primario */
+}
+
+.btn-success:focus {
+  box-shadow: 0 0 0 0.25rem rgba(6, 214, 160, 0.25); /* Focus successo */
+}
+
+.btn-danger:focus {
+  box-shadow: 0 0 0 0.25rem rgba(230, 57, 70, 0.25); /* Focus pericolo */
+}
+
+.btn-warning:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 190, 11, 0.25); /* Focus avvertimento */
+}
+
+/* === MIGLIORAMENTO BRAND === */
+
+/*
+ * Styling brand migliorato: Effetti speciali logo/brand
+ * - Font weight pesante per enfasi
+ * - Spaziatura lettere per eleganza
+ * - Text transform per consistenza brand
+ * - Effetto testo gradiente per appeal visivo
+ * - Background clip per testo gradiente
+ * - Padding per spaziatura
+ * - Coordinamento dimensione font
+ */
+.brand-enhanced {
+  font-weight: 800;                     /* Extra bold */
+  letter-spacing: 0.08em;               /* Spaziatura lettere ampia */
+  text-transform: uppercase;            /* Tutto maiuscolo per potenza brand */
+  background: linear-gradient(45deg, #fff, #e9effd); /* Gradiente bianco a blu chiaro */
+  -webkit-background-clip: text;        /* Clip sfondo a testo */
+  background-clip: text;                /* Background clip standard */
+  -webkit-text-fill-color: transparent; /* Testo trasparente per mostrare gradiente */
+  padding: 0.25rem 0;                   /* Padding verticale */
+  font-size: 1.1rem;                    /* Font leggermente più grande */
+}
+
+/* === SUPPORTO MODALITÀ SCURA RIMOSSO === */
+
+/*
+ * NOTA: Il supporto per la modalità scura è stato rimosso intenzionalmente.
+ * L'applicazione utilizza solo il tema chiaro per mantenere consistenza visiva
+ * e semplicità di manutenzione.
+ * 
+ * Se in futuro si volesse riaggiungere il supporto dark mode, 
+ * le variabili CSS sono già predisposte per facilitare l'implementazione.
+ */
+
+/* === STILI STAMPA === */
+
+/*
+ * Media query stampa: Ottimizzato per stampa
+ * - Rimozione colori per risparmio inchiostro
+ * - Rimozione ombre per stampa pulita
+ * - Aggiustamenti font per leggibilità stampa
+ * - Ottimizzazione interruzioni pagina
+ */
+@media print {
+  /* Rimuove ombre e colori per efficienza inchiostro */
+  .card,
+  .btn,
+  .navbar {
+    box-shadow: none !important;        /* Rimuove tutte le ombre */
+    background: white !important;       /* Sfondi bianchi */
+    color: black !important;            /* Testo nero */
+  }
+  
+  /* Nasconde elementi interattivi inappropriati per stampa */
+  .btn,
+  .navbar,
+  .action-btn {
+    display: none !important;           /* Nasconde elementi interattivi */
+  }
+  
+  /* Ottimizza tipografia per stampa */
+  body {
+    font-size: 12pt;                   /* Dimensione font appropriata stampa */
+    line-height: 1.4;                  /* Altezza riga più stretta per stampa */
+  }
+  
+  /* Ottimizzazione interruzioni pagina */
+  .card {
+    page-break-inside: avoid;          /* Evita interruzione cards attraverso pagine */
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;           /* Mantiene header con contenuto */
+  }
+}
+
+/* === OTTIMIZZAZIONI PRESTAZIONI === */
+
+/*
+ * Suggerimenti accelerazione GPU: Miglioramenti prestazioni
+ * - Transform3d per accelerazione GPU
+ * - Suggerimenti will-change per ottimizzazione browser
+ * - Visibilità backface per ottimizzazione 3D
+ */
+.card:hover,
+.btn:hover,
+.action-btn:hover {
+  transform: translateY(-5px) translateZ(0); /* Forza accelerazione GPU */
+  will-change: transform;               /* Suggerisce browser per ottimizzazione */
+  backface-visibility: hidden;         /* Ottimizza rendering 3D */
+}
+
+/*
+ * Prestazioni animazione: Proprietà ottimizzate
+ * - Solo transform e opacity per animazioni fluide
+ * - Evita proprietà che attivano layout
+ * - Usa transform3d per accelerazione hardware
+ */
+.fade-in,
+.slide-in {
+  will-change: transform, opacity;      /* Ottimizza per proprietà animazione */
+}
+
+/* === PROPRIETÀ PERSONALIZZATE CSS AVANZATE === */
+
+/*
+ * Proprietà personalizzate avanzate: Valori calcolati
+ * - Calc() per spaziatura dinamica
+ * - Valori responsivi con unità viewport
+ * - Miscelazione colori per variazioni tema
+ */
+:root {
+  /* Valori spaziatura calcolati */
+  --spacing-unit: 1rem;                 /* Unità spaziatura base */
+  --spacing-xs: calc(var(--spacing-unit) * 0.25); /* 0.25rem */
+  --spacing-sm: calc(var(--spacing-unit) * 0.5);  /* 0.5rem */
+  --spacing-md: calc(var(--spacing-unit) * 1);    /* 1rem */
+  --spacing-lg: calc(var(--spacing-unit) * 1.5);  /* 1.5rem */
+  --spacing-xl: calc(var(--spacing-unit) * 2);    /* 2rem */
+  
+  /* Scalatura font responsiva */
+  --font-scale: 1rem + 0.5vw;          /* Base font responsiva */
+  
+  /* Ombre dinamiche */
+  --shadow-color: rgba(43, 45, 66, 0.1); /* Variabile colore ombra */
+  --shadow-sm: 0 1px 3px var(--shadow-color);
+  --shadow-md: 0 4px 6px var(--shadow-color);
+  --shadow-lg: 0 10px 15px var(--shadow-color);
+}
+
+/* === PATTERN LAYOUT AVANZATI === */
+
+/*
+ * Container queries pronto: Funzionalità CSS future
+ * - Pattern layout che si adattano alla dimensione contenitore
+ * - Preparazione per supporto container queries
+ */
+.responsive-grid {
+  display: grid;                        /* Layout griglia */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colonne responsive */
+  gap: var(--spacing-md);               /* Gap dinamico */
+}
+
+/*
+ * Utilità flex: Pattern flex avanzati
+ * - Pattern flex comuni per layout
+ * - Approccio utility-first
+ */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
